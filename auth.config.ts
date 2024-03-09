@@ -3,7 +3,14 @@ import bcrypt from "bcryptjs";
 import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { db } from "./lib/db";
-import { loginConfig } from "./lib/auth";
+import { z } from "zod";
+
+const loginConfig = z.object({
+  email: z.string().email(),
+  password: z.string().min(1, {
+    message: "Password is required",
+  }),
+});
 
 export default {
   providers: [

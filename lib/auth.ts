@@ -1,8 +1,6 @@
-import { z } from "zod";
+import { auth } from "@/auth";
 
-export const loginConfig = z.object({
-  email: z.string().email(),
-  password: z.string().min(1, {
-    message: "Password is required",
-  }),
-});
+export async function getUserSession() {
+  const session = await auth();
+  return session;
+}
