@@ -1,7 +1,11 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 export default function Navbar() {
+  const session = useSession();
   return (
     <nav className="border-gray-light-1 flex w-full items-center justify-between border-b sticky bg-teal-950 p-4 text-sm sm:mb-0 top-0 z-10">
       <div className="flex-1">
@@ -10,14 +14,22 @@ export default function Navbar() {
         </Link>
       </div>
       <div className="space-x-4">
-        <Link href="/sign-up">
-          <Button size="lg" variant="outline">
-            Register
-          </Button>
-        </Link>
-        <Link href="/log-in">
-          <Button size="lg">Log in</Button>
-        </Link>
+        {session.status === "authenticated" ? (
+          <Link href={session.data.user.role === "USER" ? "/user" : "/doctor"}>
+            <Button size="lg">My Dashboard</Button>
+          </Link>
+        ) : (
+          <>
+            <Link href="/sign-up">
+              <Button size="lg" variant="outline">
+                Register
+              </Button>
+            </Link>
+            <Link href="/log-in">
+              <Button size="lg">Log in</Button>
+            </Link>
+          </>
+        )}
       </div>
     </nav>
   );

@@ -1,43 +1,6 @@
+import { USER_SIDEBAR_ITEMS } from "@/lib/user";
 import Navbar from "../_components/navbar";
 import Sidebar from "../_components/sidebar";
-
-const DOCTOR_SIDEBAR_ITEMS = [
-  {
-    label: "Home",
-    value: "home",
-    href: "/",
-  },
-  {
-    label: "My Sessions",
-    value: "sessions",
-    href: "/sessions",
-  },
-  {
-    label: "Payments",
-    value: "payments",
-    href: "/payments",
-  },
-  {
-    label: "Clients",
-    value: "clients",
-    href: "/clients",
-  },
-  {
-    label: "Manage Sessions",
-    value: "manageSessions",
-    href: "/settings/sessions",
-  },
-  {
-    label: "Availability",
-    value: "availability",
-    href: "/settings/availability",
-  },
-  {
-    label: "Profile",
-    value: "profile",
-    href: "/settings/profile",
-  },
-];
 
 export default function UserLayout({
   children,
@@ -46,7 +9,7 @@ export default function UserLayout({
 }) {
   return (
     <div className="h-full w-full flex">
-      <Sidebar basepath="/user" sidebarItems={DOCTOR_SIDEBAR_ITEMS} />
+      <Sidebar basepath="/user" sidebarItems={USER_SIDEBAR_ITEMS} />
       <div className="h-full flex flex-col overflow-auto flex-1">
         <Navbar />
         <div className="h-full sm:p-8">{children}</div>

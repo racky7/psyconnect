@@ -21,15 +21,16 @@ export default function Sidebar({
   const [activeItem, setActiveItem] = useState(sidebarItems[0].value);
   return (
     <div className="w-[248px] h-full flex flex-col p-4 space-y-6 bg-teal-950">
-      <div className="text-4xl text-primary-foreground">PsyConnect</div>
+      <Link href="/">
+        <button className="text-4xl text-primary-foreground">PsyConnect</button>
+      </Link>
       <div className="space-y-4 flex flex-col">
         {sidebarItems.map((item) => (
           <Link key={item.value} href={`${basepath}${item.href}`}>
             <Button
-              variant="ghost"
               className={cn(
-                "justify-start w-full text-primary-foreground hover:text-primary-foreground focus:bg-teal-600 hover:bg-teal-300/20",
-                activeItem === item.value ? "bg-teal-600" : null
+                "justify-start w-full rounded-md focus:bg-teal-600",
+                activeItem === item.value ? "bg-teal-600" : "bg-transparent"
               )}
               onClick={() => {
                 setActiveItem(item.value);

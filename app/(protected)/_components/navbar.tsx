@@ -7,6 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { BellIcon, ChevronDownIcon } from "@radix-ui/react-icons";
 import { signOut } from "next-auth/react";
 
 export default function Navbar() {
@@ -15,11 +16,12 @@ export default function Navbar() {
       <div className="flex-1"></div>
       <div>
         <Popover>
-          <PopoverTrigger>
-            <Avatar className="h-8 w-8">
+          <PopoverTrigger className="flex items-center space-x-1">
+            <Avatar className="h-7 w-7">
               <AvatarImage src="https://github.com/racky7.png" />
               <AvatarFallback>R</AvatarFallback>
             </Avatar>
+            <ChevronDownIcon className="h-4w-4" />
           </PopoverTrigger>
           <PopoverContent align="end" className="w-auto p-0">
             <Button variant="ghost" onClick={() => signOut()}>
