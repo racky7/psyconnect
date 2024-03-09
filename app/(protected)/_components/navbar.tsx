@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -5,6 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { signOut } from "next-auth/react";
 
 export default function Navbar() {
   return (
@@ -19,7 +22,9 @@ export default function Navbar() {
             </Avatar>
           </PopoverTrigger>
           <PopoverContent align="end" className="w-auto p-0">
-            <Button variant="ghost">Log out</Button>
+            <Button variant="ghost" onClick={() => signOut()}>
+              Log out
+            </Button>
           </PopoverContent>
         </Popover>
       </div>

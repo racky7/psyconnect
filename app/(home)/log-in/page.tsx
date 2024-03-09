@@ -1,6 +1,5 @@
 "use client";
 
-import { useTransition } from "react";
 import { z } from "zod";
 import AuthCard from "../_components/auth-card";
 import { useForm } from "react-hook-form";
@@ -13,14 +12,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { trpc } from "@/lib/trpc/client";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const loginConfig = z.object({
   email: z.string().email(),
@@ -28,7 +23,16 @@ const loginConfig = z.object({
 });
 
 export default function Page() {
-  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+  const loginMutation = trpc.user.logInUser.useMutation({
+    onSuccess: (user) => {
+      toast.success("Login successful");
+      router.push(user?.role === "DOCTOR" ? "/doctor" : "/user");
+    },
+    onError: (error) => {
+      toast.error("Login failed");
+    },
+  });
   const form = useForm<z.infer<typeof loginConfig>>({
     defaultValues: {
       email: "",
@@ -38,11 +42,7 @@ export default function Page() {
   });
 
   const onSubmit = (values: z.infer<typeof loginConfig>) => {
-    startTransition(() => {
-      //   register(values).then((data) => {
-      //     console.log(data);
-      //   });
-    });
+    loginMutation.mutate(values);
   };
 
   return (
@@ -61,7 +61,7 @@ export default function Page() {
                   <FormControl>
                     <Input
                       {...field}
-                      disabled={isPending}
+                      disabled={loginMutation.isLoading}
                       placeholder="Email *"
                     />
                   </FormControl>
@@ -77,7 +77,8 @@ export default function Page() {
                   <FormControl>
                     <Input
                       {...field}
-                      disabled={isPending}
+                      type="password"
+                      disabled={loginMutation.isLoading}
                       placeholder="Password *"
                     />
                   </FormControl>
@@ -86,14 +87,32 @@ export default function Page() {
               )}
             />
 
-            <Button size="lg" type="submit">
+            <Button size="lg" type="submit" disabled={loginMutation.isLoading}>
               Log In
             </Button>
           </form>
         </Form>
         <div className="text-sm">
-          Test Credentials - <button className="underline">User </button> /{" "}
-          <button className="underline">Doctor</button>
+          Test Credentials -{" "}
+          <button
+            onClick={() => {
+              form.setValue("email", "testuser@gmail.com");
+              form.setValue("password", "1234");
+            }}
+            className="underline"
+          >
+            User{" "}
+          </button>{" "}
+          /{" "}
+          <button
+            className="underline"
+            onClick={() => {
+              form.setValue("email", "testdoctor@gmail.com");
+              form.setValue("password", "1234");
+            }}
+          >
+            Doctor
+          </button>
         </div>
       </AuthCard>
     </div>

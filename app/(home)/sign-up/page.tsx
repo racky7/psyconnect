@@ -21,32 +21,39 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { trpc } from "@/lib/trpc/client";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const signupConfig = z.object({
   name: z.string().min(1, { message: "Fullname is required" }),
   email: z.string().email(),
   password: z.string().min(4, { message: "Password is required" }),
-  role: z.string().min(1, { message: "Role is required" }),
+  role: z.enum(["USER", "DOCTOR"]),
 });
 
 export default function Page() {
-  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+  const signUpUserMutation = trpc.user.signUpUser.useMutation({
+    onSuccess: () => {
+      toast.success("Sign Up Sucessfully");
+      router.push("/log-in");
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
   const form = useForm<z.infer<typeof signupConfig>>({
     defaultValues: {
       name: "",
       email: "",
       password: "",
-      role: "",
     },
     resolver: zodResolver(signupConfig),
   });
 
   const onSubmit = (values: z.infer<typeof signupConfig>) => {
-    startTransition(() => {
-      //   register(values).then((data) => {
-      //     console.log(data);
-      //   });
-    });
+    signUpUserMutation.mutate(values);
   };
 
   return (
@@ -65,7 +72,7 @@ export default function Page() {
                   <FormControl>
                     <Input
                       {...field}
-                      disabled={isPending}
+                      disabled={signUpUserMutation.isLoading}
                       placeholder="Fullname *"
                     />
                   </FormControl>
@@ -81,7 +88,7 @@ export default function Page() {
                   <FormControl>
                     <Input
                       {...field}
-                      disabled={isPending}
+                      disabled={signUpUserMutation.isLoading}
                       placeholder="Email *"
                     />
                   </FormControl>
@@ -97,7 +104,8 @@ export default function Page() {
                   <FormControl>
                     <Input
                       {...field}
-                      disabled={isPending}
+                      type="password"
+                      disabled={signUpUserMutation.isLoading}
                       placeholder="Password *"
                     />
                   </FormControl>
@@ -127,7 +135,11 @@ export default function Page() {
               )}
             />
 
-            <Button size="lg" type="submit">
+            <Button
+              size="lg"
+              type="submit"
+              disabled={signUpUserMutation.isLoading}
+            >
               Sign Up
             </Button>
           </form>

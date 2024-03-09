@@ -21,4 +21,8 @@ export const apiAuthPrefix = "/api/trpc";
  * The default redirect path after logging in
  * @type {string}
  */
-export const DEFAULT_LOGIN_REDIRECT = "/dashboard";
+export const DEFAULT_LOGIN_REDIRECT = "/user";
+
+/**
+ * An array of routes that can be accessed by DOCTOR user role
+ */

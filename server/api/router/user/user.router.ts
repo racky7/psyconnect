@@ -1,6 +1,6 @@
-import { protectedProcedure, router } from "../../trpc";
-import { getUserInput } from "./user.input";
-import { getCurrentUser, getUser } from "./user.service";
+import { protectedProcedure, publicProcedure, router } from "../../trpc";
+import { getUserInput, logInUserInput, signUpUserInput } from "./user.input";
+import { getCurrentUser, getUser, logInUser, signUpUser } from "./user.service";
 
 export const userRouter = router({
   getUser: protectedProcedure
@@ -9,4 +9,10 @@ export const userRouter = router({
   getCurrentUser: protectedProcedure.query(({ ctx: { session } }) =>
     getCurrentUser(session)
   ),
+  logInUser: publicProcedure
+    .input(logInUserInput)
+    .mutation(({ input }) => logInUser(input)),
+  signUpUser: publicProcedure
+    .input(signUpUserInput)
+    .mutation(({ input }) => signUpUser(input)),
 });

@@ -46,10 +46,7 @@ export default function DoctorLayout({
 }) {
   return (
     <div className="h-full w-full flex">
-      <Sidebar
-        basepath="/dashboard/doctor"
-        sidebarItems={DOCTOR_SIDEBAR_ITEMS}
-      />
+      <Sidebar basepath="/doctor" sidebarItems={DOCTOR_SIDEBAR_ITEMS} />
       <div className="h-full flex flex-col overflow-auto flex-1">
         <Navbar />
         <div className="h-full sm:p-8">{children}</div>
