@@ -9,7 +9,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
-import { DOCTOR_DATA } from "@/lib/home";
+import { CLOUDINARY_BASE_URL, DOCTOR_DATA } from "@/lib/home";
+import Image from "next/image";
 
 export default function Page() {
   return (
@@ -17,6 +18,12 @@ export default function Page() {
       <div className="text-3xl">Our key offerings</div>
       <div className="grid grid-cols-2 gap-24">
         <div className="space-y-4">
+          <Image
+            src={`${CLOUDINARY_BASE_URL}/psyconnect/psyconnect/e7ikmkti7nhu3lybpsgo`}
+            alt=""
+            width={400}
+            height={400}
+          />
           <div className="text-4xl font-medium flex flex-col">
             Connect 1-on-1 with <br /> our Counselors
           </div>
@@ -28,6 +35,12 @@ export default function Page() {
           </button>
         </div>
         <div className="space-y-4">
+          <Image
+            src={`${CLOUDINARY_BASE_URL}/psyconnect/psyconnect/uxr7lr6bw1750qjz9vzg`}
+            alt=""
+            width={400}
+            height={400}
+          />
           <div className="text-4xl font-medium">
             Connect 1-on-1 with <br /> a Peer
           </div>
@@ -53,6 +66,7 @@ export default function Page() {
                   name={item.name}
                   degree={item.degree}
                   specialization={item.specialization}
+                  image={item.image}
                 />
               </div>
             </CarouselItem>

@@ -11,7 +11,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
-import { connect } from "http2";
 
 export default function Page() {
   const [dialogOpen, setDialogOpen] = useState(false);

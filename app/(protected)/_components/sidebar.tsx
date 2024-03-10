@@ -29,7 +29,7 @@ export default function Sidebar({
           <Link key={item.value} href={`${basepath}${item.href}`}>
             <Button
               className={cn(
-                "justify-start w-full rounded-md focus:bg-teal-600",
+                "justify-start w-full rounded-md focus:bg-teal-600 shadow-none",
                 activeItem === item.value ? "bg-teal-600" : "bg-transparent"
               )}
               onClick={() => {
