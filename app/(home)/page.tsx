@@ -9,6 +9,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
+import { DOCTOR_DATA } from "@/lib/home";
 
 export default function Page() {
   return (
@@ -42,13 +43,17 @@ export default function Page() {
       <div className="text-3xl">Connect with our Counselors</div>
       <Carousel className="w-[90%]">
         <CarouselContent className="-ml-1">
-          {Array.from({ length: 10 }).map((_, index) => (
+          {DOCTOR_DATA.map((item, index) => (
             <CarouselItem
               key={index}
               className="pl-1 md:basis-1/2 lg:basis-1/4"
             >
               <div className="p-1">
-                <ExpertCard />
+                <ExpertCard
+                  name={item.name}
+                  degree={item.degree}
+                  specialization={item.specialization}
+                />
               </div>
             </CarouselItem>
           ))}

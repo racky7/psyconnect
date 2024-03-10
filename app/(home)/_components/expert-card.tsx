@@ -2,7 +2,17 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-export default function ExpertCard() {
+type ExpertCardProps = {
+  name: string;
+  degree: string;
+  specialization: string[];
+};
+
+export default function ExpertCard({
+  name,
+  degree,
+  specialization,
+}: ExpertCardProps) {
   return (
     <Card>
       <CardContent className="flex flex-col space-y-5 aspect-square items-center justify-center p-2">
@@ -12,15 +22,13 @@ export default function ExpertCard() {
             <AvatarFallback>R</AvatarFallback>
           </Avatar>
           <div className="space-y-2">
-            <div className="font-semibold">Srimoyee Roy</div>
-            <div>Masters in psychology</div>
+            <div className="font-semibold">{name}</div>
+            <div>{degree}</div>
           </div>
         </div>
         <div className="space-y-1">
           <div className="font-medium">Specialization</div>
-          <div className="">
-            Sleep Issues, Phobia, Sexual Issues, Depression, Anxiety , Stress
-          </div>
+          <div className="">{specialization.join(" ")}</div>
         </div>
         <div className="flex justify-end w-full space-x-2">
           <Button size="sm" variant="outline">

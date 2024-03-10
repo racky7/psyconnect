@@ -16,8 +16,8 @@ export const USER_SIDEBAR_ITEMS = [
   },
   {
     label: "Mood Journal",
-    value: "qna",
-    href: "/qna",
+    value: "journal",
+    href: "/journal",
   },
   {
     label: "Profile",
