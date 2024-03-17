@@ -11,6 +11,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
+import Image from "next/image";
+import { CLOUDINARY_BASE_URL } from "@/lib/home";
 
 export default function Page() {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -74,7 +76,14 @@ export default function Page() {
               </DialogContent>
             </Dialog>
           </div>
-          <div className="col-span-2"></div>
+          <div className="col-span-2">
+            <Image
+              src={`${CLOUDINARY_BASE_URL}/psyconnect/psyconnect/yssby3hz5lbmhbfizt47`}
+              alt=""
+              width={150}
+              height={150}
+            />
+          </div>
         </div>
       </div>
       <div className="flex space-x-8">
