@@ -7,6 +7,7 @@ import {
 } from "@radix-ui/react-icons";
 import { notFound, redirect } from "next/navigation";
 import SessionCard from "../_components/session-card";
+import AvailabilityCard from "./_components/availability-card";
 
 export default async function DoctorDashboard() {
   const session = await auth();
@@ -38,7 +39,7 @@ export default async function DoctorDashboard() {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 space-x-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <SessionCard
           upcoming={true}
           title="How to manage your thoughts?"
@@ -46,6 +47,7 @@ export default async function DoctorDashboard() {
           datetime={new Date()}
           meetlink=""
         />
+        <AvailabilityCard />
       </div>
     </div>
   );

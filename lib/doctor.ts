@@ -30,11 +30,6 @@ export const DOCTOR_SIDEBAR_ITEMS = [
     href: "/settings/sessions",
   },
   {
-    label: "Availability",
-    value: "availability",
-    href: "/settings/availability",
-  },
-  {
     label: "Profile",
     value: "profile",
     href: "/settings/profile",
