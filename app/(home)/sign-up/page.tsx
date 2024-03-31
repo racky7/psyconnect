@@ -26,7 +26,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 const signupConfig = z.object({
-  name: z.string().min(1, { message: "Fullname is required" }),
+  name: z.string().trim().min(1, { message: "Fullname is required" }),
   email: z.string().email(),
   password: z.string().min(4, { message: "Password is required" }),
   role: z.enum(["USER", "DOCTOR"]),
@@ -35,6 +35,15 @@ const signupConfig = z.object({
 export default function Page() {
   const router = useRouter();
   const signUpUserMutation = trpc.user.signUpUser.useMutation({
+    onSuccess: () => {
+      toast.success("Sign Up Sucessfully");
+      router.push("/log-in");
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+  const signUpDoctorMutation = trpc.doctor.signUpDoctor.useMutation({
     onSuccess: () => {
       toast.success("Sign Up Sucessfully");
       router.push("/log-in");
@@ -53,7 +62,11 @@ export default function Page() {
   });
 
   const onSubmit = (values: z.infer<typeof signupConfig>) => {
-    signUpUserMutation.mutate(values);
+    if (values.role === "USER") {
+      signUpUserMutation.mutate(values);
+    } else {
+      signUpDoctorMutation.mutate(values);
+    }
   };
 
   return (
@@ -138,7 +151,9 @@ export default function Page() {
             <Button
               size="lg"
               type="submit"
-              disabled={signUpUserMutation.isLoading}
+              disabled={
+                signUpUserMutation.isLoading || signUpDoctorMutation.isLoading
+              }
             >
               Sign Up
             </Button>

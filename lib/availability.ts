@@ -1,3 +1,5 @@
+import daysjs from "@/lib/dayjs";
+
 export type TimeString = `${number | ""}${number}:${number}${number}`;
 
 export const getTimeOptions = (
@@ -18,4 +20,8 @@ export const getTimeOptions = (
   arr.splice(0, Math.floor(minutes / 30) + 1);
 
   return arr;
+};
+
+export const minToDate = (minutes: number) => {
+  return daysjs().startOf("day").add(minutes, "minutes").toISOString();
 };

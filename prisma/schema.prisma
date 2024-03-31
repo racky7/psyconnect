@@ -29,6 +29,17 @@ model User {
   accounts      Account[]
   bookings      Booking[]
   EventType     EventType[]
+  username      String?     @unique
+}
+
+model Doctor {
+  id             String         @id @default(cuid())
+  userId         String
+  fullName       String
+  bio            Json?
+  education      Json?
+  specialization String[]
+  availability   Availability[]
 }
 
 model Account {
@@ -52,11 +63,15 @@ model Account {
 
 model Availability {
   id        Int      @id @default(autoincrement())
-  userId    String
+  doctor    Doctor?  @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  doctorId  String?
   days      Int[]
   startTime DateTime @db.Time
   endTime   DateTime @db.Time
   timeZone  String   @default("Asia/Calcutta")
+  disabled  Boolean
+
+  @@index([doctorId])
 }
 
 enum BookingStatus {

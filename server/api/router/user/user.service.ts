@@ -49,6 +49,7 @@ export async function signUpUser({
       email,
       password: hashedPassword,
       role,
+      username: `${name.split(" ")[0]}_${Date.now()}`,
     },
   });
 }
