@@ -8,6 +8,9 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useState } from "react";
 import BookingModal from "./booking-modal";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 type ExpertCardProps = {
   name: string;
@@ -25,6 +28,9 @@ export default function ExpertCard({
   className,
 }: ExpertCardProps) {
   const [bookingModal, setBookingModal] = useState(false);
+
+  const session = useSession();
+  const router = useRouter();
 
   return (
     <Card className={cn(className)}>
@@ -53,7 +59,15 @@ export default function ExpertCard({
             size="sm"
             className="bg-teal-600 text-primary-foreground hover:bg-teal-600/95"
             onClick={() => {
-              setBookingModal(true);
+              if (session.data) {
+                if (session.data.user.role === "USER") {
+                  setBookingModal(true);
+                } else {
+                  toast("Only user can book session.");
+                }
+              } else {
+                router.replace("/log-in?redirect=counselors");
+              }
             }}
           >
             Book Session

@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc/client";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const loginConfig = z.object({
   email: z.string().email(),
@@ -24,10 +24,16 @@ const loginConfig = z.object({
 
 export default function Page() {
   const router = useRouter();
+  const redirect = useSearchParams().get("redirect");
+
   const loginMutation = trpc.user.logInUser.useMutation({
     onSuccess: (user) => {
       toast.success("Login successful");
-      router.push(user?.role === "DOCTOR" ? "/doctor" : "/user");
+      if (redirect) {
+        router.replace(redirect);
+      } else {
+        router.push(user?.role === "DOCTOR" ? "/doctor" : "/user");
+      }
     },
     onError: (error) => {
       toast.error("Login failed");
