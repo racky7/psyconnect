@@ -87,7 +87,7 @@ export default function Page() {
               )}
             />
 
-            <Button size="lg" type="submit" disabled={loginMutation.isLoading}>
+            <Button size="lg" type="submit" loading={loginMutation.isLoading}>
               Log In
             </Button>
           </form>

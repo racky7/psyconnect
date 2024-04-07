@@ -1,9 +1,10 @@
 import { z } from "zod";
-import { signUpDoctorInput } from "./doctor.input";
+import { signUpDoctorInput, updateAvailabilitiesInput } from "./doctor.input";
 import { db } from "@/lib/db";
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcryptjs";
 import { minToDate } from "@/lib/availability";
+import { User } from "@prisma/client";
 
 export async function signUpDoctor({
   name,
@@ -65,4 +66,36 @@ export async function signUpDoctor({
       code: "INTERNAL_SERVER_ERROR",
     });
   }
+}
+
+export async function getAvailability(userId: string) {
+  const doctor = await db.doctor.findFirst({
+    where: { userId },
+    select: { id: true },
+  });
+  if (!doctor) return;
+  return db.availability.findMany({
+    where: {
+      doctorId: doctor.id,
+    },
+  });
+}
+
+export async function updateAvailabilities(
+  input: z.infer<typeof updateAvailabilitiesInput>
+) {
+  for (const availability of input) {
+    await db.availability.update({
+      where: {
+        id: availability.id,
+      },
+      data: {
+        startTime: availability.startTime,
+        endTime: availability.endTime,
+        disabled: availability.disabled,
+      },
+    });
+  }
+
+  return { success: true };
 }

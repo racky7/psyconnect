@@ -1,13 +1,20 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CLOUDINARY_BASE_URL } from "@/lib/home";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { useState } from "react";
+import BookingModal from "./booking-modal";
 
 type ExpertCardProps = {
   name: string;
   degree: string;
   specialization: string[];
   image?: string;
+  className?: string;
 };
 
 export default function ExpertCard({
@@ -15,10 +22,13 @@ export default function ExpertCard({
   degree,
   specialization,
   image,
+  className,
 }: ExpertCardProps) {
+  const [bookingModal, setBookingModal] = useState(false);
+
   return (
-    <Card>
-      <CardContent className="flex flex-col space-y-5 aspect-square items-center justify-center p-2">
+    <Card className={cn(className)}>
+      <CardContent className="flex flex-col space-y-5 aspect-square items-center justify-between px-2 py-4">
         <div className="flex space-x-3 items-center">
           <div>
             <Avatar className="h-24 w-24">
@@ -42,10 +52,18 @@ export default function ExpertCard({
           <Button
             size="sm"
             className="bg-teal-600 text-primary-foreground hover:bg-teal-600/95"
+            onClick={() => {
+              setBookingModal(true);
+            }}
           >
             Book Session
           </Button>
         </div>
+        <BookingModal
+          open={bookingModal}
+          setOpen={setBookingModal}
+          name={name}
+        />
       </CardContent>
     </Card>
   );

@@ -11,10 +11,11 @@ import {
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { CLOUDINARY_BASE_URL, DOCTOR_DATA } from "@/lib/home";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Page() {
   return (
-    <div className="flex flex-col items-center space-y-6 p-8">
+    <div className="flex flex-col items-center space-y-10 p-8">
       <div className="text-3xl">Our key offerings</div>
       <div className="grid grid-cols-2 gap-24">
         <div className="space-y-4">
@@ -24,15 +25,17 @@ export default function Page() {
             width={400}
             height={400}
           />
-          <div className="text-4xl font-medium flex flex-col">
+          <div className="text-4xl font-medium">
             Connect 1-on-1 with <br /> our Counselors
           </div>
-          <button className="flex items-center border-2 border-teal-900 p-2 w-auto rounded-3xl text-lg px-4">
-            Explore Counselors
-            <span>
-              <ArrowRightIcon className="ml-2 h-5 w-5" />
-            </span>
-          </button>
+          <Link href="/counselors">
+            <button className="flex items-center border-2 border-teal-900 p-2 w-auto rounded-3xl text-lg px-4">
+              Explore Counselors
+              <span>
+                <ArrowRightIcon className="ml-2 h-5 w-5" />
+              </span>
+            </button>
+          </Link>
         </div>
         <div className="space-y-4">
           <Image
@@ -44,16 +47,18 @@ export default function Page() {
           <div className="text-4xl font-medium">
             Connect 1-on-1 with <br /> a Peer
           </div>
-          <button className="flex items-center border-2 border-teal-900 p-2 w-auto rounded-3xl text-lg px-4">
-            Explore Peers
-            <span>
-              <ArrowRightIcon className="ml-2 h-5 w-5" />
-            </span>
-          </button>
+          <Link href="/">
+            <button className="flex items-center border-2 border-teal-900 p-2 w-auto rounded-3xl text-lg px-4">
+              Explore Peers
+              <span>
+                <ArrowRightIcon className="ml-2 h-5 w-5" />
+              </span>
+            </button>
+          </Link>
         </div>
       </div>
 
-      <div className="text-3xl">Connect with our Counselors</div>
+      <div className="text-3xl">Connect with our Top Counselors</div>
       <Carousel className="w-[90%]">
         <CarouselContent className="-ml-1">
           {DOCTOR_DATA.map((item, index) => (

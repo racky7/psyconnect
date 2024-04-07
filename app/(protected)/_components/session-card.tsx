@@ -35,8 +35,13 @@ export default function SessionCard({
               Upcoming Session
             </span>
           </h1>
-          <Button variant="ghost" className="text-teal-950 rounded-md">
-            View all <ArrowRight className="h-4 w-4 ml-1" />
+          <Button
+            variant="ghost"
+            className="text-teal-950 rounded-md"
+            icon={<ArrowRight className="h-4 w-4 ml-1" />}
+            iconPosition="right"
+          >
+            View all
           </Button>
         </div>
       ) : null}
@@ -71,8 +76,12 @@ export default function SessionCard({
         <div className="flex justify-end space-x-2">
           <Button variant="ghost">View Detail</Button>
           <Link href={meetlink ?? ""}>
-            <Button className="space-x-2">
-              Join Meet <ArrowRight className="h-4 w-4" />
+            <Button
+              className="space-x-2"
+              icon={<ArrowRight className="h-4 w-4" />}
+              iconPosition="right"
+            >
+              Join Meet
             </Button>
           </Link>
         </div>
