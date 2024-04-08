@@ -1,7 +1,7 @@
 export const USER_SIDEBAR_ITEMS = [
   {
     label: "Home",
-    value: "home",
+    value: "user",
     href: "/",
   },
   {

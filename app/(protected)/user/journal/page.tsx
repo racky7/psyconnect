@@ -17,8 +17,8 @@ import { CLOUDINARY_BASE_URL } from "@/lib/home";
 export default function Page() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [journals, setJournals] = useState([
-    { content: "I am feeling happy today.", date: "10 March 2024" },
-    { content: "It was not a good day.", date: "8 March 2024" },
+    { content: "I am feeling happy today.", date: "5 April 2024" },
+    { content: "It was not a good day.", date: "3 April 2024" },
   ]);
   const [content, setContent] = useState("");
 
@@ -64,7 +64,7 @@ export default function Page() {
                   <Button
                     onClick={() => {
                       setJournals((prev) => [
-                        { content: content, date: "11 March 2024" },
+                        { content: content, date: "8 April 2024" },
                         ...prev,
                       ]);
                       setDialogOpen(false);

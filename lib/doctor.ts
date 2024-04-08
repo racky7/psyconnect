@@ -1,7 +1,7 @@
 export const DOCTOR_SIDEBAR_ITEMS = [
   {
     label: "Home",
-    value: "home",
+    value: "doctor",
     href: "/",
   },
   {

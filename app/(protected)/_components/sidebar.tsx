@@ -1,9 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 type SidebarItem = {
   label: string;
@@ -18,6 +19,7 @@ export default function Sidebar({
   basepath: string;
   sidebarItems: SidebarItem[];
 }) {
+  const pathname = usePathname();
   const [activeItem, setActiveItem] = useState(sidebarItems[0].value);
   return (
     <div className="w-[248px] h-full flex flex-col p-4 space-y-6 bg-teal-950">
@@ -30,7 +32,9 @@ export default function Sidebar({
             <Button
               className={cn(
                 "justify-start w-full rounded-md focus:bg-teal-600 shadow-none",
-                activeItem === item.value ? "bg-teal-600" : "bg-transparent"
+                pathname.split("/").pop()?.includes(item.value)
+                  ? "bg-teal-600"
+                  : "bg-transparent"
               )}
               onClick={() => {
                 setActiveItem(item.value);
