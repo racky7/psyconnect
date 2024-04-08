@@ -45,7 +45,7 @@ export default async function DoctorDashboard() {
           title="How to manage your thoughts?"
           attendee="Ahana"
           datetime={new Date()}
-          meetlink=""
+          meetlink="https://meet.google.com/hye-sjdk-scp"
         />
         <AvailabilityCard />
       </div>

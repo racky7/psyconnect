@@ -21,6 +21,7 @@ import {
 import { TimeString, getTimeOptions } from "@/lib/availability";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 type BookingModalProps = {
   open: boolean;
@@ -55,7 +56,9 @@ export default function BookingModal({
               <p className="text-sm">
                 {date?.toDateString()} at {selectedTime}
               </p>
-              <Button variant="link">View Details</Button>
+              <Link href="/user">
+                <Button variant="link">View Details</Button>
+              </Link>
             </div>
           ))
           .with("unbooked", () => (

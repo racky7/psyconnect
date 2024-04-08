@@ -17,9 +17,9 @@ export default async function Page() {
         <SessionCard
           upcoming={true}
           title="How to manage your thought?"
-          attendee="Dr. Azona"
+          attendee="Aarav Patel          "
           datetime={new Date()}
-          meetlink=""
+          meetlink="https://meet.google.com/hye-sjdk-scp"
         />
       </div>
       <h3 className="text-xl">EXPLORE</h3>

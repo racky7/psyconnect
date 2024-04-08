@@ -69,7 +69,7 @@ export default function SessionCard({
         </div>
         <div className="flex space-x-2 text-sm items-center">
           <Calendar className="h-4 w-4" />
-          <span>Mar 12, 2024</span>
+          <span>April 9, 2024</span>
           <Clock className="h-4 w-4" />
           <span>5:30 PM - 6:00 PM</span>
         </div>
