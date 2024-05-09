@@ -5,6 +5,7 @@ import { TRPCError } from "@trpc/server";
 import bcrypt from "bcryptjs";
 import { minToDate } from "@/lib/availability";
 import { User } from "@prisma/client";
+import { Session } from "next-auth";
 
 export async function signUpDoctor({
   name,
@@ -98,4 +99,12 @@ export async function updateAvailabilities(
   }
 
   return { success: true };
+}
+
+export function getUserBookings(session: Session) {
+  return db.booking.findMany({
+    where: {
+      userId: session.user.id!,
+    },
+  });
 }

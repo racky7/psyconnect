@@ -2,6 +2,15 @@ import daysjs from "@/lib/dayjs";
 
 export type TimeString = `${number | ""}${number}:${number}${number}`;
 
+export const timeStringToMin = (timeString: TimeString) => {
+  const [hourString, minuteString] = timeString.split(":");
+
+  const hours = parseInt(hourString);
+  const minutes = parseInt(minuteString);
+
+  return hours * 60 + minutes;
+};
+
 export const getTimeOptions = (
   timeString: TimeString = "00:00"
 ): TimeString[] => {
@@ -22,6 +31,9 @@ export const getTimeOptions = (
   return arr;
 };
 
-export const minToDate = (minutes: number) => {
-  return daysjs().startOf("day").add(minutes, "minutes").toISOString();
+export const minToDate = (
+  minutes: number,
+  date: Date | undefined = undefined
+) => {
+  return daysjs(date).startOf("day").add(minutes, "minutes").toISOString();
 };

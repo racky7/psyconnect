@@ -18,10 +18,17 @@ import {
   CheckIcon,
   ClockIcon,
 } from "lucide-react";
-import { TimeString, getTimeOptions } from "@/lib/availability";
+import {
+  TimeString,
+  getTimeOptions,
+  minToDate,
+  timeStringToMin,
+} from "@/lib/availability";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { trpc } from "@/lib/trpc/client";
+import { toast } from "sonner";
 
 type BookingModalProps = {
   open: boolean;
@@ -39,6 +46,15 @@ export default function BookingModal({
   const [selectedTime, setTime] = useState<TimeString | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
 
+  const bookSlotMutation = trpc.user.bookSlot.useMutation({
+    onSuccess: () => {
+      setStatus("booked");
+      toast("Slot has been booked successfully");
+    },
+    onError: () => {
+      toast("Error while booking slot.");
+    },
+  });
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="min-w-[630px] min-h-[400px]">
@@ -118,13 +134,25 @@ export default function BookingModal({
                 <Button
                   variant="default"
                   size="sm"
-                  loading={loading}
+                  disabled={bookSlotMutation.isLoading}
+                  loading={bookSlotMutation.isLoading}
                   onClick={() => {
-                    setLoading(true);
-                    setTimeout(() => {
-                      setStatus("booked");
-                      setLoading(false);
-                    }, 2000);
+                    // setLoading(true);
+                    // setTimeout(() => {
+                    //   setStatus("booked");
+                    //   setLoading(false);
+                    // }, 2000);
+                    bookSlotMutation.mutate({
+                      doctorUserId: "clufdvy6l000i141peyacdyrp",
+                      startTime: minToDate(
+                        timeStringToMin(selectedTime!),
+                        date
+                      ),
+                      endTime: minToDate(
+                        timeStringToMin(selectedTime!) + 30,
+                        date
+                      ),
+                    });
                   }}
                 >
                   Submit

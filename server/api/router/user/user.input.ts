@@ -16,3 +16,9 @@ export const logInUserInput = z.object({
   email: z.string().email(),
   password: z.string(),
 });
+
+export const bookSlotInput = z.object({
+  doctorUserId: cuid,
+  startTime: z.string(),
+  endTime: z.string(),
+});

@@ -1,6 +1,17 @@
 import { protectedProcedure, publicProcedure, router } from "../../trpc";
-import { getUserInput, logInUserInput, signUpUserInput } from "./user.input";
-import { getCurrentUser, getUser, logInUser, signUpUser } from "./user.service";
+import {
+  bookSlotInput,
+  getUserInput,
+  logInUserInput,
+  signUpUserInput,
+} from "./user.input";
+import {
+  bookSlot,
+  getCurrentUser,
+  getUser,
+  logInUser,
+  signUpUser,
+} from "./user.service";
 
 export const userRouter = router({
   getUser: protectedProcedure
@@ -15,4 +26,7 @@ export const userRouter = router({
   signUpUser: publicProcedure
     .input(signUpUserInput)
     .mutation(({ input }) => signUpUser(input)),
+  bookSlot: protectedProcedure
+    .input(bookSlotInput)
+    .mutation(({ input, ctx: { session } }) => bookSlot(input, session)),
 });

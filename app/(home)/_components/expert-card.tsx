@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useState } from "react";
 import BookingModal from "./booking-modal";
 import { useSession } from "next-auth/react";
+// @ts-ignore
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -66,7 +67,7 @@ export default function ExpertCard({
                   toast("Only user can book session.");
                 }
               } else {
-                router.replace("/log-in?redirect=counselors");
+                router.push("/log-in?redirect=counselors");
               }
             }}
           >

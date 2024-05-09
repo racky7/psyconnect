@@ -1,10 +1,16 @@
 import { z } from "zod";
 import { AuthError, Session } from "next-auth";
-import { getUserInput, logInUserInput, signUpUserInput } from "./user.input";
+import {
+  bookSlotInput,
+  getUserInput,
+  logInUserInput,
+  signUpUserInput,
+} from "./user.input";
 import { db } from "@/lib/db";
 import bcrypt from "bcryptjs";
 import { TRPCError } from "@trpc/server";
 import { signIn } from "@/auth";
+import { v4 as uuidv4 } from "uuid";
 
 export function getUser(input: z.infer<typeof getUserInput>) {
   return db.user.findUnique({
@@ -92,4 +98,42 @@ export async function logInUser({
       message: "Something went wrong!",
     });
   }
+}
+
+export async function bookSlot(
+  { doctorUserId, startTime, endTime }: z.infer<typeof bookSlotInput>,
+  session: Session
+) {
+  if (!session.user.id) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "User not found",
+    });
+  }
+  // TODO: Check if booking is conflicting or not
+  try {
+    await db.booking.create({
+      data: {
+        uid: uuidv4(),
+        userId: doctorUserId,
+        requestedUserId: session.user.id,
+        title: `Booking with ${session.user.name}`,
+        startTime,
+        endTime,
+      },
+    });
+  } catch (error) {
+    throw new TRPCError({
+      code: "BAD_REQUEST",
+      message: "Error booking slot",
+    });
+  }
+}
+
+export function getUserBookings(session: Session) {
+  return db.booking.findMany({
+    where: {
+      requestedUserId: session.user.id!,
+    },
+  });
 }
