@@ -1,4 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
+import dayjs from "dayjs";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -20,3 +21,13 @@ export function getBaseUrl() {
 export function getUrl(path: string) {
   return `${getBaseUrl()}${path}`;
 }
+
+export const generateRandomDate = () => {
+  const startDate = dayjs();
+  const endDate = dayjs().add(7, "day");
+
+  const randomDays = Math.floor(Math.random() * endDate.diff(startDate, "day"));
+  const randomDate = startDate.add(randomDays, "day");
+
+  return randomDate.format("YYYY-MM-DD HH:mm:ss");
+};

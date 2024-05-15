@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -7,6 +9,7 @@ import {
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
 import { ArrowRight, Calendar, Clock, Phone } from "lucide-react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 type SessionCardProps = {
   upcoming: true;
@@ -23,6 +26,9 @@ export default function SessionCard({
   datetime,
   meetlink,
 }: SessionCardProps) {
+  const router = useRouter();
+  const path = usePathname();
+
   return (
     <div className="w-full border bg-gray-50 border-gray-200 p-4 md:rounded-2xl md:p-5 space-y-4">
       {upcoming ? (
@@ -40,6 +46,11 @@ export default function SessionCard({
             className="text-teal-950 rounded-md"
             icon={<ArrowRight className="h-4 w-4 ml-1" />}
             iconPosition="right"
+            onClick={() => {
+              router.push(
+                `${path.includes("user") ? "/user" : "/doctor"}/sessions`
+              );
+            }}
           >
             View all
           </Button>
@@ -69,7 +80,7 @@ export default function SessionCard({
         </div>
         <div className="flex space-x-2 text-sm items-center">
           <Calendar className="h-4 w-4" />
-          <span>April 9, 2024</span>
+          <span>May 19, 2024</span>
           <Clock className="h-4 w-4" />
           <span>5:30 PM - 6:00 PM</span>
         </div>
