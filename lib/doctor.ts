@@ -1,8 +1,8 @@
 export const DOCTOR_SIDEBAR_ITEMS = [
   {
     label: "Home",
-    value: "doctor",
-    href: "/",
+    value: "dashboard",
+    href: "/dashboard",
   },
   {
     label: "My Sessions",

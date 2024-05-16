@@ -32,9 +32,7 @@ export default function Sidebar({
             <Button
               className={cn(
                 "justify-start w-full rounded-md focus:bg-teal-600 shadow-none",
-                pathname.split("/").pop()?.includes(item.value)
-                  ? "bg-teal-600"
-                  : "bg-transparent"
+                pathname.includes(item.value) ? "bg-teal-600" : "bg-transparent"
               )}
               onClick={() => {
                 setActiveItem(item.value);

@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import ExpertCard from "./_components/expert-card";
 import Navbar from "./_components/navbar";
@@ -11,9 +13,10 @@ import {
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { CLOUDINARY_BASE_URL, DOCTOR_DATA } from "@/lib/home";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter();
   return (
     <div className="flex flex-col items-center space-y-10 p-8">
       <div className="text-3xl">Our key offerings</div>
@@ -28,14 +31,17 @@ export default function Page() {
           <div className="text-4xl font-medium">
             Connect 1-on-1 with <br /> our Counselors
           </div>
-          <Link href="/counselors">
-            <button className="flex items-center border-2 border-teal-900 p-2 w-auto rounded-3xl text-lg px-4">
-              Explore Counselors
-              <span>
-                <ArrowRightIcon className="ml-2 h-5 w-5" />
-              </span>
-            </button>
-          </Link>
+          <button
+            className="flex items-center border-2 border-teal-900 p-2 w-auto rounded-3xl text-lg px-4"
+            onClick={() => {
+              router.push("/counselors");
+            }}
+          >
+            Explore Counselors
+            <span>
+              <ArrowRightIcon className="ml-2 h-5 w-5" />
+            </span>
+          </button>
         </div>
         <div className="space-y-4">
           <Image
@@ -47,14 +53,12 @@ export default function Page() {
           <div className="text-4xl font-medium">
             Connect 1-on-1 with <br /> a Peer
           </div>
-          <Link href="/">
-            <button className="flex items-center border-2 border-teal-900 p-2 w-auto rounded-3xl text-lg px-4">
-              Explore Peers
-              <span>
-                <ArrowRightIcon className="ml-2 h-5 w-5" />
-              </span>
-            </button>
-          </Link>
+          <button className="flex items-center border-2 border-teal-900 p-2 w-auto rounded-3xl text-lg px-4">
+            Explore Peers
+            <span>
+              <ArrowRightIcon className="ml-2 h-5 w-5" />
+            </span>
+          </button>
         </div>
       </div>
 

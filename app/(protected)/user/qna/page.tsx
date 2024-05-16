@@ -1,9 +1,15 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { CLOUDINARY_BASE_URL, QNA_DATA } from "@/lib/home";
 import Image from "next/image";
 import QuestionCard from "./_components/question-card";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter();
+  const pathname = usePathname();
+
   return (
     <div className="w-full p-8 space-y-10">
       <div className="w-[750px] shadow-lg rounded-2xl p-7 ring-2 ring-gray-200 mx-auto">
@@ -14,7 +20,13 @@ export default function Page() {
               Ask and discuss with the community <br /> of users from all across
               the globe
             </p>
-            <Button className="rounded-full" size="lg">
+            <Button
+              className="rounded-full"
+              size="lg"
+              onClick={() => {
+                router.push(`${pathname}/ask-question`);
+              }}
+            >
               Ask Anonymously
             </Button>
           </div>

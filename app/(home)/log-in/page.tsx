@@ -32,7 +32,9 @@ export default function Page() {
       if (redirect) {
         router.replace(redirect);
       } else {
-        router.push(user?.role === "DOCTOR" ? "/doctor" : "/user");
+        router.push(
+          user?.role === "DOCTOR" ? "/doctor/dashboard" : "/user/dashboard"
+        );
       }
     },
     onError: (error) => {

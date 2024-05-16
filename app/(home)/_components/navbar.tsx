@@ -15,7 +15,13 @@ export default function Navbar() {
       </div>
       <div className="space-x-4">
         {session.status === "authenticated" ? (
-          <Link href={session.data.user.role === "USER" ? "/user" : "/doctor"}>
+          <Link
+            href={
+              session.data.user.role === "USER"
+                ? "/user/dashboard"
+                : "/doctor/dashboard"
+            }
+          >
             <Button size="lg">My Dashboard</Button>
           </Link>
         ) : (

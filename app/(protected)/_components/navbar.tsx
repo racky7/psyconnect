@@ -34,7 +34,12 @@ export default function Navbar() {
             <ChevronDownIcon className="h-4w-4" />
           </PopoverTrigger>
           <PopoverContent align="end" className="w-auto p-0">
-            <Button variant="ghost" onClick={() => signOut()}>
+            <Button
+              variant="ghost"
+              onClick={async () => {
+                await signOut();
+              }}
+            >
               Log out
             </Button>
           </PopoverContent>

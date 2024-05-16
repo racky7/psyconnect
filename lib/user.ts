@@ -1,8 +1,8 @@
 export const USER_SIDEBAR_ITEMS = [
   {
     label: "Home",
-    value: "user",
-    href: "/",
+    value: "dashboard",
+    href: "/dashboard",
   },
   {
     label: "My Sessions",
