@@ -64,7 +64,7 @@ export default function Page() {
                   <Button
                     onClick={() => {
                       setJournals((prev) => [
-                        { content: content, date: "8 April 2024" },
+                        { content: content, date: "3 Jun 2024" },
                         ...prev,
                       ]);
                       setDialogOpen(false);

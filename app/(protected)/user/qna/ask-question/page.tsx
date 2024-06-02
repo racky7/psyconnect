@@ -64,6 +64,7 @@ export default function Page() {
           onSubmit={form.handleSubmit(
             (values: z.infer<typeof questionConfig>) => {
               console.log(values);
+              router.back();
             }
           )}
         >

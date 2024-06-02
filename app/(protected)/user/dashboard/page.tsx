@@ -39,7 +39,7 @@ export default async function Page() {
               width={100}
               height={100}
             />
-            <Link href="counselors">
+            <Link href="/counselors" target="_">
               <Button size="sm">Schedule a Session</Button>
             </Link>
           </div>
@@ -56,7 +56,7 @@ export default async function Page() {
               width={100}
               height={100}
             />
-            <Link href="user/journal">
+            <Link href="journal">
               <Button size="sm">Visit Mood Journal</Button>
             </Link>
           </div>
@@ -72,7 +72,7 @@ export default async function Page() {
               width={100}
               height={100}
             />
-            <Link href="user/qna">
+            <Link href="qna">
               <Button size="sm">Start a discussion</Button>
             </Link>
           </div>

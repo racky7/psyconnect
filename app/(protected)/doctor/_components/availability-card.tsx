@@ -14,9 +14,12 @@ import { Switch } from "@/components/ui/switch";
 import { TimeString, getTimeOptions } from "@/lib/availability";
 import { Calendar } from "lucide-react";
 import { trpc } from "@/lib/trpc/client";
+import { toast } from "sonner";
+import { useState } from "react";
 
 export default function AvailabilityCard() {
   const getAvailabilityQuery = trpc.doctor.getAvailability.useQuery();
+  const [isLoading, setLoading] = useState(false);
   const form = useForm<{
     weekdays: { disabled: boolean; startTime: TimeString; endTime: TimeString };
     weekends: { disabled: boolean; startTime: TimeString; endTime: TimeString };
@@ -199,7 +202,20 @@ export default function AvailabilityCard() {
         </form>
       </Form>
       <div className="flex justify-end space-x-2">
-        <Button className="rounded-md">Save</Button>
+        <Button
+          className="rounded-md"
+          disabled={isLoading}
+          loading={isLoading}
+          onClick={() => {
+            setLoading(true);
+            setTimeout(() => {
+              setLoading(false);
+              toast("Availability updated successfully");
+            }, 2000);
+          }}
+        >
+          Save
+        </Button>
       </div>
     </div>
   );
